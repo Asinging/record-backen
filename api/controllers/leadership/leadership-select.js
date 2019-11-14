@@ -29,7 +29,13 @@ module.exports = {
       }
     }).catch(err => {
       if (!err) console.log("this is errors")
-    }).then(function (success) {
+    }).then(function (response) {
+      if (response.length == []) {
+        console.log("the response data is empty")
+        res.statusCode(201).json({
+          data: "the response data is empty"
+        })
+      }
       return res.json({
         data: "yess"
       })

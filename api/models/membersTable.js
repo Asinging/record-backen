@@ -45,16 +45,6 @@ module.exports = {
       required: true,
 
     },
-    firstTimer: {
-      type: "string",
-      required: true,
-
-    },
-    secondTimer: {
-      type: "string",
-      required: true,
-
-    },
 
   },
 
