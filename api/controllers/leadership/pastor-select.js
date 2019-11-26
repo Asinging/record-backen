@@ -24,13 +24,11 @@ module.exports = {
     // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     // res.header("Access-Control-Allow-Credentials", true)
 
-    query = await membersTable.find(
-      //{
-      //   where: {
-      //     first_name: "eje"
-      //   }
-      // }
-    )
+    query = await Leadership.find({
+      where: {
+        role: 'pastor'
+      }
+    })
 
     if (!query) {
       console.log("there is something wrong with your query or wrong parameter was use to query ")
@@ -39,6 +37,7 @@ module.exports = {
       })
     } else if (query) {
       if (query.length == []) {
+
         console.log("sorry the database is empty")
 
 

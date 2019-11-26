@@ -18,10 +18,15 @@ module.exports.routes = {
   // "get /delete": {
   //   action: "leadership/leadership-insert"
   // },
+  'GET /leadership/headofdepartment': {
+    action: "leadership/head-of-department-select"
+  },
   'GET /deletepastor': {
     action: 'leadership/pastor-delete',
   },
-
+  'GET /leadership/ministers': {
+    action: "leadership/ministers-select"
+  },
   'get /leadership/insert': {
     action: 'leadership/leadership-insert',
   },

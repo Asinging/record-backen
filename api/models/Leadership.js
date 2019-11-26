@@ -40,10 +40,7 @@ module.exports = {
       required: true,
       allowNull: false
     },
-    password: {
-      type: "string",
-      required: true
-    }
+
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗

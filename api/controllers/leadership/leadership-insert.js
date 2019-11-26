@@ -37,10 +37,6 @@ module.exports = {
       type: "number",
       required: true,
 
-    },
-    password: {
-      type: "string",
-      required: true,
     }
 
 
@@ -64,8 +60,7 @@ module.exports = {
     var role = inputs.role
     var dateOfBirth = inputs.dateOfBirth
     var phone = inputs.phone
-    var password = inputs.password
-    var queryString = 'INSERT INTO leadership (first_name, last_name, email, role, date_of_birth, phone, password) VALUE("' + firstName + '","' + lastName + '","' + email + '","' + role + '","' + dateOfBirth + '","' + phone + '","' + password + '")'
+    var queryString = 'INSERT INTO leadership (first_name, last_name, email, role, date_of_birth, phone) VALUE("' + firstName + '","' + lastName + '","' + email + '","' + role + '","' + dateOfBirth + '","' + phone + '")'
     var push = await Leadership.getDatastore().sendNativeQuery(queryString, (err, data) => {
       if (err) {
         console.log("querying databaser  has an error " + err)

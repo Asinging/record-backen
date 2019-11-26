@@ -36,6 +36,10 @@ module.exports = {
       type: "string",
       required: false,
 
+    },
+    password: {
+      type: "string"
+
     }
 
 
@@ -51,26 +55,24 @@ module.exports = {
     let req = this.req;
     let res = this.res;
     let fullName = inputs.fullName;
-
     let department = inputs.department;
     let phone = inputs.phone;
-
     let dateOfBirth = inputs.dateOfBirth;
     let firstTimer = inputs.firstTimer;
-    let secondTimer = inputs.secondTimer
-
+    let secondTimer = inputs.secondTimer;
+    let password = inputs.password
 
 
     if (req.cookies) {
 
       let recordCreated = await membersTable.create({
         name: fullName,
-
         department: department,
         phone: phone,
         dateOfBirth: dateOfBirth,
         firstTimer: firstTimer,
-        secondTimer: secondTimer
+        secondTimer: secondTimer,
+        password: inputs.password
 
       }).fetch()
       if (recordCreated) {

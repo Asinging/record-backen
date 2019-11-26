@@ -22,7 +22,7 @@ module.exports = {
         Object.values(objProps).forEach((key) => {
           console.log(key)
 
-          let query = membersTable.destroy(key)
+          let query = Leadership.destroy(key)
           if (query) {
             res.json({
               data: key,
