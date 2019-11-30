@@ -6,27 +6,22 @@
  */
 
 module.exports = {
-
   attributes: {
-
     offering: {
-      type: "number",
-
+      type: 'number',
     },
     tithe: {
-      type: "number"
+      type: 'number',
     },
     thanksGiving: {
-      type: "number"
+      type: 'number',
     },
     specialHonor: {
-      type: "number"
+      type: 'number',
     },
     date: {
-      type: "ref",
-      columeType: "datestamp"
-    }
-
+      type: 'ref',
+      columnType: "datetime"
+    },
   },
-
 };
