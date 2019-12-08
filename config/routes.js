@@ -15,9 +15,27 @@ module.exports.routes = {
 
   //******************************************************************************** */
   //my custom routes
-  // "get /delete": {
+  // "get" /delete": {  
   //   action: "leadership/leadership-insert"
   // },
+  "GET /events/birthdays": {
+    action: "events/birthdays"
+  },
+  "GET /firstTimer": {
+    action: "record/attendance/first-timers"
+
+  },
+  "GET /secondTimer": {
+    action: "record/attendance/second-timers"
+
+  },
+  "GET /finances/select": {
+    action: "record/finances/financial-record-select"
+  },
+  'GET /finances/insert': {
+    action: "record/finances/financial-record-insert"
+  },
+
   'GET /leadership/headofdepartment': {
     action: "leadership/head-of-department-select"
   },

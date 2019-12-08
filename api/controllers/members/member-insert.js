@@ -69,9 +69,9 @@ module.exports = {
         name: fullName,
         department: department,
         phone: phone,
-        dateOfBirth: dateOfBirth,
-        firstTimer: firstTimer,
-        secondTimer: secondTimer,
+        date_of_birth: dateOfBirth,
+        first_timer: firstTimer,
+        second_timer: secondTimer,
         password: inputs.password
 
       }).fetch()
