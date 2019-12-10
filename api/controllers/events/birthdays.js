@@ -26,43 +26,26 @@ module.exports = {
     let input = inputs.day
     let date = new Date()
     let time;
+    var searchLimit = []
+    var daysOfWeekSpent = date.getDay() + 1
+    let presentDay = date.getDate()
 
+    var remainingDaysOfWeek = 7 - daysOfWeekSpent;
+    //subtracting 1 from the week so we don't have 0 day when looking for the weekStart 
+    let weekStart = presentDay - (daysOfWeekSpent - 1)
 
-
-
-    if (input === "today") {
-      time = date.getDate() + '-' + (date.getMonth() + 1)
-      const query1 = await Leadership.find({
-        where: {
-          date_of_birth: time
-        }
-      })
-      const query2 = await membersTable.find({
-        where: {
-          date_of_birth: time
-        }
-      })
-      if (query1, query2) {
-        return res.json({
-          data: [
-            query1, query2
-          ]
-        })
-      }
-    }
+    var weekEnd = presentDay + remainingDaysOfWeek
 
 
     function calLastDayOfTheMonth(m) {
 
       return new Date(0, m + 1, 0).getDate()
-
     }
-    // # ##### ###### #####    ##   #####  ####  #####   ####  
-    // #   #   #      #    #  #  #    #   #    # #    # #      
-    // #   #   #####  #    # #    #   #   #    # #    #  ####  
-    // #   #   #      #####  ######   #   #    # #####       # 
-    // #   #   #      #   #  #    #   #   #    # #   #  #    # 
-    // #   #   ###### #    # #    #   #    ####  #    #  ####  
+
+    // ┬┌┬┐┌─┐┬─┐┌─┐┌┬┐┌─┐┬─┐┌─┐
+    // │ │ ├┤ ├┬┘├─┤ │ │ │├┬┘└─┐
+    // ┴ ┴ └─┘┴└─┴ ┴ ┴ └─┘┴└─└─┘
+
 
     function daysIterator(date, weekStart, weekEnd, countDate) {
       date;
@@ -112,27 +95,33 @@ module.exports = {
 
     };
 
-    // ┌─┐┌─┐┌─┐┬─┐┌─┐┬ ┬┬┌┐┌┌─┐  ┌─┐┌─┐┬─┐┌─┐┌┬┐┌─┐
-    // └─┐├┤ ├─┤├┬┘│  ├─┤│││││ ┬  ├─┘├─┤├┬┘├─┤│││└─┐
-    // └─┘└─┘┴ ┴┴└─└─┘┴ ┴┴┘└┘└─┘  ┴  ┴ ┴┴└─┴ ┴┴ ┴└─┘
 
+    if (input === "today") {
+      time = date.getDate() + '-' + (date.getMonth() + 1)
+      const query1 = await Leadership.find({
+        where: {
+          date_of_birth: time
+        }
+      })
+      const query2 = await membersTable.find({
+        where: {
+          date_of_birth: time
+        }
+      })
+      if (query1, query2) {
+        return res.json({
+          data: [
+            query1, query2
+          ]
+        })
+      }
+    }
+    // ┌┬┐┬ ┬┬┌─┐  ┬ ┬┌─┐┌─┐┬┌─  ┌─┐┌─┐┌─┐┌─┐┬─┐┌─┐┬ ┬
+    // │ ├─┤│└─┐  │││├┤ ├┤ ├┴┐  └─┐├┤ ├─┤├─┤├┬┘│  ├─┤
+    // ┴ ┴ ┴┴└─┘  └┴┘└─┘└─┘┴ ┴  └─┘└─┘┴ ┴┴ ┴┴└─└─┘┴ ┴
 
     if (input === "thisWeek") {
-      console.log("yes am here")
 
-      let daysOfWeekSpent = date.getDay() + 1
-      let presentDay = date.getDate()
-
-
-      let remainingDaysOfWeek = 7 - daysOfWeekSpent;
-      //subtracting 1 from the week so we don't have 0 day when looking for the weekStart 
-      let weekStart = presentDay - (daysOfWeekSpent - 1)
-
-      let weekEnd = presentDay + remainingDaysOfWeek
-      var searchLimit = []
-
-
-      //function returning days of the month it could have been in anywhere
 
 
       function searchingParams(date, weekStart, weekEnd) {
@@ -151,20 +140,11 @@ module.exports = {
 
         } else if (weekEnd > 30) {
 
-          console.log("the  second condition was met")
+          console.log("the second condition was met")
           date.setDate(weekStart)
           daysIterator(date, weekStart, weekEnd)
 
-        }
-
-        // else if (calLastDayOfTheMonth(date.getMonth()) == 31 && weekEnd > 31) {
-
-        //   date.setMonth(date.getMonth() + 1)
-        //   date.setDate(weekEnd - 31)
-        //   daysIterator(date, weekStart, weekEnd)
-
-        //}
-        else if (calLastDayOfTheMonth(date.getMonth()) == 28) {
+        } else if (calLastDayOfTheMonth(date.getMonth()) == 28) {
           if (weekEnd > 28) {
             date.setDate(weekStart)
             daysIterator(date, weekStart, weekEnd)
@@ -182,56 +162,49 @@ module.exports = {
         } else {
           daysIterator(date, weekStart, weekEnd)
         }
-
-
-
-
-        //else if (calLastDayOfTheMonth(0, date.getMonth()) == 29 && weekEnd > 29) {
-
-        //   date.setMonth(date.getMonth() + 1)
-        //   date.setDate(weekEnd - 29)
-        //   daysIterator(date, weekStart, weekEnd)
-
-
-        // }
-        // //else if (weekStart < 28 && 28 > weekEnd && Math.sign(weekStart) != -1) {
-        // else if (3 == 2) {
-        //   console.log(weekStart, weekEnd)
-        //   daysIterator(date, weekStart, weekEnd)
-        // }
-
-        console.log(searchLimit)
-
-        //return searchLimit
+        return searchLimit
 
       }
+      console.log(searchingParams(date, weekStart, weekEnd))
 
-      // const query = await membersTable.find({
-      //   where: {
-      //     dateOfBirth: searchingParams(date, weekStart, weekEnd)
-      //   }
+    }
 
-      // })
-      function con() {
-        console.log(searchingParams(date, weekStart, weekEnd))
+    //ends
+    if (input == "thisMonth") {
+      function searchMonth(date, ) {
+        if (calLastDayOfTheMonth(date.getMonth()) == 28) {
+          for (i = 1; i <= 28; i++) {
+            limit = `${i}/${date.getMonth() + 1}`
+            searchLimit.push(limit)
+          }
+        } else if (calLastDayOfTheMonth(date.getMonth()) == 29) {
+          for (i = 1; i <= 29; i++) {
+            limit = `${i}/${date.getMonth() + 1}`
+            searchLimit.push(limit)
+          }
+        } else if (calLastDayOfTheMonth(date.getMonth()) == 30) {
+          for (i = 1; i <= 30; i++) {
+            limit = `${i}/${date.getMonth() + 1}`
+            searchLimit.push(limit)
+          }
+        }
+        if (calLastDayOfTheMonth(date.getMonth()) == 31) {
+          for (i = 1; i <= 31; i++) {
+            limit = `${i}/${date.getMonth() + 1}`
+            searchLimit.push(limit)
+          }
+        }
+        return searchLimit
       }
-
-
-
-      con()
-      ///return res.json(searchingParams(date, weekStart, weekEnd))
+      console.log(searchMonth(date))
     }
 
 
+    // const query = await membersTable.find({
+    //   where: {
+    //     dateOfBirth: searchingParams(date, weekStart, weekEnd)
+    //   }
 
-
-
-
-
-
-
-    // All done.  
-
-
+    // })
   }
 }
