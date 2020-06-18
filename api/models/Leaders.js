@@ -10,21 +10,16 @@ module.exports = {
     createdAt: false,
     updatedAt: false,
 
-    first_name: {
+
+    full_name: {
       type: "string",
       required: true,
-      allowNull: false
+
     },
-    last_name: {
-      type: "string",
-      required: true,
-      allowNull: false
+    department: {
+      type: "string"
     },
-    email: {
-      type: "string",
-      required: true,
-      allowNull: false
-    },
+
     role: {
       type: "string",
       required: true,

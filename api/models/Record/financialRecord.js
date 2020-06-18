@@ -23,10 +23,11 @@ module.exports = {
     thanks_giving: {
       type: 'number',
     },
-    special_honor: {
-      type: 'number',
+    date: {
+      type: "string"
     },
-    date_field: {
+
+    time_field: {
       type: 'ref',
       columnType: 'timestamp'
     },

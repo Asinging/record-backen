@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {
     createdAt: false,
-    updatedAt: false,
+    //updatedAt: false,
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
@@ -25,14 +25,14 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    name: {
+    full_name: {
       type: "string",
       required: true,
 
     },
     department: {
       type: "string",
-      required: true,
+      required: false,
 
     },
     phone: {
@@ -45,18 +45,16 @@ module.exports = {
       required: true,
 
     },
-    first_timer: {
+    timely_coming: {
       type: "string",
 
     },
-    second_timer: {
+
+
+    date_of_service: {
       type: "string",
 
-    },
-    password: {
-      type: "string",
-
-    },
+    }
     // beforeValidate: function (user, cb) {
     //   bcrypt.genSalt(10, function (err, salt) {
     //     bcrypt.hash(user.password, salt, null, function (err, hash) {
@@ -68,6 +66,7 @@ module.exports = {
     // }
 
   },
+
 
 
 };

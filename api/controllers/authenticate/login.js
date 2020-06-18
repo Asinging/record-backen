@@ -1,3 +1,4 @@
+bcrypt = require("bcryptjs")
 module.exports = {
   friendlyName: 'Login',
 
@@ -6,10 +7,12 @@ module.exports = {
   inputs: {
     email: {
       type: 'string',
+      required: true,
       allowNull: false,
     },
     password: {
       type: 'string',
+      required: true,
     },
   },
 
@@ -20,15 +23,12 @@ module.exports = {
     let req = this.req;
     var email = inputs.email;
     let password = inputs.password;
-    res.cookie('ejeFirstCookie', '1', {
-      maxAge: 900000,
-      htppOnly: true,
-    });
+    foundUser = []
 
-    await Leadership.find({
+
+    admin.find({
         where: {
           email: email,
-          password: password,
         },
 
         select: ['email', 'password'],
@@ -43,26 +43,53 @@ module.exports = {
         }
       })
       .then(data => {
-        // checking session present
-        console.log(req.cookies.ejeFirstCookie);
-        if (req.session) {
-          console.log(req.session);
-          if (data) {
+        data.forEach(item => {
+          user = bcrypt.compareSync(password, item.password)
+          if (user) {
+            foundUser.push(item)
+
+          }
+
+        })
+
+        if (foundUser !== []) {
+          if (req.session) {
+            res.cookie('eje', "youandme", {
+              maxAge: 900000,
+              httpOnly: true
+            })
             res.status(200);
             return res.json({
-              data: data,
+              data: foundUser.email,
               msg: 'you have successfully login',
             });
+          } else {
+            return res.serverError({
+              statusCode: 500,
+              msg: 'you dont any authentication yet',
+            });
           }
-        } else {
-          return res.serverError({
-            statusCode: 100,
-            msg: 'you dont any authentication yet',
-          });
         }
       });
 
     // All done.
+
+
+    // passport.authenticate('local', function (err, user, info) {
+    //   if ((err) || (!user)) {
+    //     return res.send({
+    //       message: info.message,
+    //       user
+    //     });
+    //   }
+    //   req.logIn(user, function (err) {
+    //     if (err) res.send(err);
+    //     return res.send({
+    //       message: info.message,
+    //       user
+    //     });
+    //   });
+    // })(req, res);
     return;
   },
 };

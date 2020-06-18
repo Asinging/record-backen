@@ -15,38 +15,46 @@ module.exports.routes = {
 
   //******************************************************************************** */
   //my custom routes
-  // "get" /delete": {  
-  //   action: "leadership/leadership-insert"
-  // },
+
+
   "GET /events/birthdays": {
     action: "events/birthdays"
   },
-  "GET /firstTimer": {
-    action: "record/attendance/first-timers"
+  "GET /members/irregularMembers": "members/irregular-members-select",
 
+  "GET /firstTimers": {
+    action: "record/attendance/firstTimers/first-timers"
   },
   "GET /secondTimer": {
-    action: "record/attendance/second-timers"
+    action: "record/attendance/secondTimers/second-timers"
 
   },
-  "GET /finances/select": {
+  "GET /members": {
+    action: "members/members-insert"
+
+  },
+
+  "GET /financialRecords/select": {
     action: "record/finances/financial-record-select"
   },
-  'GET /finances/insert': {
+  'GET /financeRecords/insert': {
     action: "record/finances/financial-record-insert"
   },
 
-  'GET /leadership/headofdepartment': {
-    action: "leadership/head-of-department-select"
+  'GET /heads': "leadership/head-of-department-select",
+  "get /addheads": "leadership/head-of-department-insert",
+
+  'GET /deleteLeader': {
+    action: 'leadership/leaders-delete',
   },
-  'GET /deletepastor': {
-    action: 'leadership/pastor-delete',
-  },
-  'GET /leadership/ministers': {
+  'GET /ministers': {
     action: "leadership/ministers-select"
   },
-  'get /leadership/insert': {
-    action: 'leadership/leadership-insert',
+  'get /addpastors': {
+    action: 'leadership/pastor-insert',
+  },
+  'get /addministers': {
+    action: 'leadership/minister-insert',
   },
   'GET /select': {
     action: 'leadership/leadership-select',
@@ -56,9 +64,12 @@ module.exports.routes = {
   },
 
   'get /login': 'authenticate/login',
-  'get /membersInsert': {
-    action: 'members/member-insert',
+  'get /pastorInsert': {
+    action: 'leadership/pastor-insert',
   },
+  'get /adminSignUp': "authenticate/create-user",
+  'get /adminLogin': "admin-login"
+
 
   //**************************************************************** */
 };

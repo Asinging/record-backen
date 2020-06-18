@@ -10,7 +10,7 @@ module.exports = {
   fn: async function () {
 
     let res = this.res
-    let query = await Leadership.find({
+    let query = await Leaders.find({
       where: {
         role: 'minister'
 
@@ -23,9 +23,10 @@ module.exports = {
 
     }
     if (query) {
-      if (query.length == 0) {
-        return res.status(402).json({
-          data: "the data for the minister requested for"
+      console.log(query)
+      if (query.length == []) {
+        return res.status(200).json({
+          data: []
         })
       }
 
@@ -36,9 +37,7 @@ module.exports = {
       // })
 
       console.log(query)
-      return res.json({
-        data: query
-      })
+      return res.status(200).json(query)
     }
 
     ///resRole.length = 0

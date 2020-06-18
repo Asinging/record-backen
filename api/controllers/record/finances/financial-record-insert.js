@@ -16,12 +16,11 @@ module.exports = {
     thanksGiving: {
       type: "number"
     },
-    specialHonor: {
-      type: "number"
-    },
+    date: {
+      type: "string"
+    }
+
   },
-
-
   exits: {
 
   },
@@ -31,15 +30,23 @@ module.exports = {
     const res = this.res
     const offering = inputs.offering;
     const tithe = inputs.tithe;
-
     const thanksGiving = inputs.thanksGiving;
-    const specialHonor = inputs.specialHonor;
+    let newDate = []
+    let date = inputs.date.split('/')
+    for (i of date) {
+      date = parseInt(i)
+      newDate.push(date)
+
+    }
+
+    date = newDate.join('/')
+    console.log(date)
 
     const query = await financialRecord.create({
       offering: offering,
       tithe: tithe,
       thanks_giving: thanksGiving,
-      special_honor: specialHonor
+      date: date,
 
     }).fetch()
     if (query) {

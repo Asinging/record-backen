@@ -19,30 +19,24 @@ module.exports = {
     },
     phone: {
       type: "number",
-      required: false,
+      required: true,
     },
 
     dateOfBirth: {
       type: "string",
-      required: false,
+      required: true,
     },
 
-    firstTimer: {
+    timelyComing: {
       type: "string",
-      required: false,
+      required: true,
 
     },
-    secondTimer: {
+
+    dateOfService: {
       type: "string",
-      required: false,
-
-    },
-    password: {
-      type: "string"
-
+      requried: true
     }
-
-
   },
 
 
@@ -58,27 +52,43 @@ module.exports = {
     let department = inputs.department;
     let phone = inputs.phone;
     let dateOfBirth = inputs.dateOfBirth;
-    let firstTimer = inputs.firstTimer;
-    let secondTimer = inputs.secondTimer;
-    let password = inputs.password
+    let timelyComing = inputs.timelyComing;
+
+    let dateOfService = inputs.dateOfService.split('/')
+
+
+
+    let arr = []
+
+
+    for (i = 0; i < dateOfService.length; i++) {
+      arr.push(parseInt(dateOfService[i]))
+
+    }
+
+    dateOfService = arr.join('/')
+
+    //let [day, month, year] = arr;
+
 
 
     if (req.cookies) {
 
-      let recordCreated = await membersTable.create({
-        name: fullName,
+      let createRecord = await members.create({
+        full_name: fullName,
         department: department,
         phone: phone,
         date_of_birth: dateOfBirth,
-        first_timer: firstTimer,
-        second_timer: secondTimer,
-        password: inputs.password
+        timely_coming: timelyComing,
+
+
+        date_of_service: dateOfService
 
       }).fetch()
-      if (recordCreated) {
+      if (createRecord) {
         res.status(200)
         return res.json({
-          data: req.cookie,
+          data: createRecord,
           message: "yes this is it"
         })
       } else {
@@ -94,10 +104,10 @@ module.exports = {
 
 
     // All done.
+
+
+
     return;
-
-    //}
-
 
   }
 }

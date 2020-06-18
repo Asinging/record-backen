@@ -23,7 +23,7 @@ module.exports = {
   },
   fn: async function (inputs, exits) {
     var res = this.res
-    let findEje = await Leadership.find({
+    let findEje = await Leaders.find({
       where: {
         first_name: 'sun'
       }

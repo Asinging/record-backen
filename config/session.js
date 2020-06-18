@@ -19,6 +19,7 @@ module.exports.session = {
    *                                                                          *
    ***************************************************************************/
   secret: '91fb6290addb804cebb19aa1c9026cc0',
+
   url: 'mongodb+srv://username:password@cluster0-tkjwp.mongodb.net/mydbname?retryWrites=true',
   collection: 'sessions',
   auto_reconnect: false,
@@ -27,7 +28,7 @@ module.exports.session = {
   cookie: {
     secure: true,
     maxAge: 24 * 60 * 60 * 1000
-  }
+  },
 
 
   /***************************************************************************
@@ -41,8 +42,8 @@ module.exports.session = {
    * https://sailsjs.com/config/session                                       *
    *                                                                          *
    ***************************************************************************/
-  // isSessionDisabled: function (req){
-  //   return !!req.path.match(req._sails.LOOKS_LIKE_ASSET_RX);
-  // },
+  isSessionDisabled: function (req) {
+    return !!req.path.match(req._sails.LOOKS_LIKE_ASSET_RX);
+  },
 
 };

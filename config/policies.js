@@ -22,6 +22,7 @@ module.exports.policies = {
   'legal/view-privacy': true,
   'deliver-contact-form-message': true,
 
-  'leadership/pastor-select': "is-login"
+  // '*': "is-login",
+  // "authenticate/login": true
 
 };

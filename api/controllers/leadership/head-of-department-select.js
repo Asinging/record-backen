@@ -19,7 +19,7 @@ module.exports = {
 
   fn: async function (inputs) {
     let res = this.res
-    let query = await Leadership.find({
+    let query = await Leaders.find({
       where: {
         role: 'head of department'
 
@@ -33,9 +33,7 @@ module.exports = {
     }
     if (query) {
       if (query.length == 0) {
-        return res.status(402).json({
-          data: "the data for the minister requested for"
-        })
+        return res.status(200).json("the data entry is empty")
       }
 
       // query.forEach(resData => {
@@ -45,9 +43,7 @@ module.exports = {
       // })
 
       console.log(query)
-      return res.json({
-        data: query
-      })
+      return res.status(200).json(query)
     }
     // All done.
     return;
