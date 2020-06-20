@@ -25,7 +25,7 @@ module.exports.routes = {
   "GET /firstTimers": {
     action: "record/attendance/firstTimers/first-timers"
   },
-  "GET /secondTimer": {
+  "GET /secondTimers": {
     action: "record/attendance/secondTimers/second-timers"
 
   },

@@ -15,24 +15,6 @@ module.exports = {
     arr: {
       type: "json"
     },
-
-    // date: {
-    //   type: 'json'
-    // },
-
-    // weekStart: {
-    //   type: "number"
-    // },
-    // weekEnd: {
-    //   type: "number"
-    // },
-    // countDate: {
-    //   type: "number"
-    // },
-    // requestYear: {
-    //   type: "string"
-    // }
-
   },
 
 
@@ -49,14 +31,19 @@ module.exports = {
     // passing the the date function as parameter converts it to string which we can not get the .getMonth method from
     // so a new date instance has to be created
     let time = new Date()
+    let todaysDate = time.getDate()
     theMonth = time.getMonth()
     let thisIteration = inputs.thisIteration
     let arr = inputs.arr
+    if (arr != undefined) {
 
-    let [date, weekStart, weekEnd, countDate, requestYear] = arr
+      let [date, weekStart, weekEnd, countDate, requestYear] = arr
 
-
+    }
     days = []
+
+    // this week iteration
+
     if (thisIteration == "thisWeek") {
 
       monthEnding = await sails.helpers.getLastDayOfMonth(time.getFullYear(), theMonth)
@@ -113,7 +100,9 @@ module.exports = {
         console.log(days)
       }
     }
-    if (thisIteration == "customSearch") {
+
+    // custom search iterations
+    else if (thisIteration == "customSearch") {
       let arr = inputs.arr
 
       let arr1 = arr[0]
@@ -146,6 +135,28 @@ module.exports = {
       }
 
     }
+
+    // regular / irregular members iterations
+    else if (thisIteration == "membersRegularities") {
+      let calLastDayOfTheMonth = await sails.helpers.getLastDayOfMonth(time.getFullYear(), time.getMonth())
+      let params
+      time.setMonth(theMonth - 1) // setting the month to previous month
+      for (i = (todaysDate + 1); i <= calLastDayOfTheMonth; i++) {
+        params = `${i}/${time.getMonth() + 1}/${time.getFullYear()}`
+        days.push(params)
+
+
+      }
+      time.setMonth(time.getMonth() + 1)
+      for (i = 1; i <= todaysDate; i++) {
+        params = `${i}/${time.getMonth() + 1}/${time.getFullYear()}`
+        days.push(params)
+
+      }
+
+
+    }
+
 
 
     return days

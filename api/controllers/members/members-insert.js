@@ -61,9 +61,8 @@ module.exports = {
     let arr = []
 
 
-    for (i = 0; i < dateOfService.length; i++) {
-      arr.push(parseInt(dateOfService[i]))
-
+    for (let i of dateOfService) {
+      arr.push(parseInt(i))
     }
 
     dateOfService = arr.join('/')

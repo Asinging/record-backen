@@ -15,7 +15,12 @@
        required: true,
      },
      flag: {
-       type: "string"
+       type: "string",
+       required: true
+     },
+     startingDate: {
+       description: "this is irregular and regular members search, the date till present date to check how consistent a member has been coming on the range  of dates",
+       type: "number"
      }
 
    },
@@ -36,11 +41,14 @@
    fn: async function (inputs, exits) {
 
      const date = inputs.date
+
      let flag = inputs.flag
+     let startingDate = inputs.startingDate
      // console.log(time)
      //sails.log("yes wee are")
      // year as flag to differentiate to query from
      if (flag == "financialRecords") {
+       console.log(flag)
 
 
        let query = await financialRecord.find({
@@ -57,6 +65,7 @@
        if (query) {
 
          if (query.length == []) {
+           sails.log("the query result is empty")
            return exits.success(query)
          } else {
            return exits.success(query)
@@ -66,6 +75,8 @@
            data: "cound\'nt go through"
          })
        }
+
+       //  query for firstTimers
      } else if (flag == "firstTimers") {
        let query = await members.find({
          where: {
@@ -79,6 +90,39 @@
          sails.log(query)
          return exits.success(query)
 
+       }
+     } else if (flag == "secondTimers") {
+       let query = await members.find({
+         where: {
+           timely_coming: "second",
+           date_of_service: date
+
+         },
+       })
+       if (query) {
+
+         sails.log(query)
+         return exits.success(query)
+
+       }
+     } else if (flag == "members") {
+
+       let query = await members.find({
+         where: {
+           updatedAt: {
+             ">=": startingDate
+           },
+           date_of_service: date,
+
+
+         }
+       })
+
+       if (!query) {
+         res.negotiate("this")
+       } else if (query) {
+         console.log(query)
+         return exits.success(query)
        }
      } else {
        Q.all([
