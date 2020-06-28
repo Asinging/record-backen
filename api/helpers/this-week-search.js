@@ -15,9 +15,9 @@ module.exports = {
     weekEnd: {
       type: "number"
     },
-    flag: {
-      type: "string"
-    },
+    // flag: {
+    //   type: "string"
+    // },
 
   },
 
@@ -31,6 +31,7 @@ module.exports = {
   fn: async function (inputs) {
     // passing the the date function as parameter converts it to string which we can not get the .getMonth method from
     // so a new date instance has to be created
+
     let thisIteration = "thisWeek"
     date = new Date()
     theMonth = date.getMonth()
@@ -43,6 +44,7 @@ module.exports = {
     let disWeek = []
 
 
+
     //function searchingParams(date, weekStart, weekEnd) {
     //  theMonth = monthEnding
     if (Math.sign(weekStart) == -1) {
@@ -52,48 +54,50 @@ module.exports = {
       countDate = monthEnding + weekStart
 
       date.setDate(countDate)
+      disWeek.push(date, weekStart, weekEnd, countDate)
+      days = await sails.helpers.iterators(thisIteration, disWeek)
 
-      days = await sails.helpers.iterators(thisIteration, disWeek.push(date, weekStart, weekEnd, countDate, flag))
-      console.log(days)
 
     } else if (weekEnd > 30) {
-
-
-
       date.setDate(weekStart)
-      disWeek.push(date, weekStart, weekEnd, countDate, flag)
+      disWeek.push(date, weekStart, weekEnd)
       days = await sails.helpers.iterators(thisIteration, disWeek)
-      console.log(time)
+
 
     } else if (monthEnding == 28) {
       if (weekEnd > 28) {
         date.setDate(weekStart)
-        days = await sails.helpers.iterators(thisIteration, disWeek.push(date, weekStart, weekEnd, countDate, flag))
-        console.log(time)
+        days = await sails.helpers.iterators(thisIteration, disWeek)
+
 
       } else {
-        disWeek.push(date, weekStart, weekEnd, countDate, flag)
+        disWeek.push(date, weekStart, weekEnd)
         days = await sails.helpers.iterators(thisIteration, disWeek)
-        console.log(time)
+
       }
     } else if (monthEnding == 29) {
       if (weekEnd > 29) {
         date.setDate(weekStart)
-        disWeek.push(date, weekStart, weekEnd, countDate, flag)
-        days = await sails.helpers.iterators(thisIteration, )
-
+        days = await sails.helpers.iterators(thisIteration, disWeek.push(date, weekStart, weekEnd, countDate, flag))
       } else {
-        disWeek.push(date, weekStart, weekEnd, countDate, flag)
+        disWeek.push(date, weekStart, weekEnd)
         days = await sails.helpers.iterators(thisIteration, disWeek)
-        console.log(days)
+
       }
     } else {
-      disWeek.push(date, weekStart, weekEnd, countDate, flag)
 
+      console.log("i got you 1")
+      disWeek.push(date, weekStart, weekEnd)
       days = await sails.helpers.iterators(thisIteration, disWeek)
 
+
     }
-    return days
+    // get the formatted version of the days from a helper
+    let daysFormatted = await sails.helpers.formattedDays(days)
+    console.log("thisWeek days formatted")
+    console.log(daysFormatted)
+
+    return daysFormatted
   }
 
 

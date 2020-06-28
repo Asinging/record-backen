@@ -33,6 +33,7 @@ module.exports = {
         days.push(limit)
       }
     }
-    return days
+    daysFormatted = await sails.helpers.formattedDays(days)
+    return daysFormatted
   }
 };

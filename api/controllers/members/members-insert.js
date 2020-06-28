@@ -10,32 +10,36 @@ module.exports = {
   inputs: {
     fullName: {
       type: "string",
-      required: true
+
     },
 
     department: {
       type: "string",
-      require: false
+
     },
     phone: {
       type: "number",
-      required: true,
+
     },
 
     dateOfBirth: {
       type: "string",
-      required: true,
+
     },
 
     timelyComing: {
       type: "string",
-      required: true,
+
 
     },
 
     dateOfService: {
       type: "string",
       requried: true
+    },
+    address: {
+      type: "string",
+
     }
   },
 
@@ -53,11 +57,9 @@ module.exports = {
     let phone = inputs.phone;
     let dateOfBirth = inputs.dateOfBirth;
     let timelyComing = inputs.timelyComing;
+    let address = inputs.address
 
     let dateOfService = inputs.dateOfService.split('/')
-
-
-
     let arr = []
 
 
@@ -79,8 +81,7 @@ module.exports = {
         phone: phone,
         date_of_birth: dateOfBirth,
         timely_coming: timelyComing,
-
-
+        address: address,
         date_of_service: dateOfService
 
       }).fetch()

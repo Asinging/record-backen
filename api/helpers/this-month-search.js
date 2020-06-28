@@ -38,28 +38,15 @@ module.exports = {
     } else {
       year = 'abundance'
     }
-    if (monthEnding == 28) {
-      for (i = 1; i <= 28; i++) {
-        let limit = `${i}/${date.getMonth() + 1}/${year}`
-        days.push(limit)
-      }
-    } else if (monthEnding == 29) {
-      for (i = 1; i <= 29; i++) {
-        let limit = `${i}/${date.getMonth() + 1}/${year}`
-        days.push(limit)
-      }
-    } else if (monthEnding == 30) {
-      for (i = 1; i <= 30; i++) {
-        let limit = `${i}/${date.getMonth() + 1}/${year}`
-        days.push(limit)
-      }
-    } else if (monthEnding == 31) {
-      for (i = 1; i <= 31; i++) {
-        let limit = `${i}/${date.getMonth() + 1}/${year}`
-        days.push(limit)
-      }
+
+    for (i = 1; i <= monthEnding; i++) {
+      let limit = `${i}/${date.getMonth() + 1}/${year}`
+      days.push(limit)
     }
-    return days
+
+
+    daysFormatted = await sails.helpers.formattedDays(days)
+    return daysFormatted
 
 
   }

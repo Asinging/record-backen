@@ -4,43 +4,48 @@ module.exports = {
   friendlyName: 'Birthdate',
   description: 'Birthdate event.',
   inputs: {
-    day: {
+    record: {
       type: "string",
-      required: true
-    }
+
+    },
+    date_1: {
+      type: "string",
+
+    },
+    date_2: {
+      type: "string",
+
+    },
+    flag: {
+      type: "string",
+
+    },
   },
   exits: {},
   fn: async function (inputs) {
-
+    let flag = 'birthdays'
     const res = this.res
-    var date = new Date()
-    var weekStart = sails.config.myVariables.theVs.weekStart
-    var weekEnd = sails.config.myVariables.theVs.weekEnd
+    let date_1 = inputs.date_1
+    let date_2 = inputs.date_2
+    let record = inputs.record
+
+    let queriesCaller
 
 
-    var queryResult;
-    if (inputs.day === "today") {
-      // getting the current date in day and month
-      let time = `${date.getDate()}/${(date.getMonth() + 1)}`
-      //calling the helpercal
-      queryResult = await sails.helpers.sendMultipleQueries(time)
-      return res.json(queryResult)
+    let queryResult;
+
+
+    try {
+      queriesCaller = await sails.helpers.callQueries(record, date_1, date_2, flag)
+    } catch (error) {
+      // sails.log(error.name + ":" + error.message)
+
+    } finally {
+
+      return res.json(queriesCaller)
     }
 
-    //this week search
-    if (inputs.day === "thisWeek") {
 
-      time = await sails.helpers.thisWeekSearch(weekStart, weekEnd)
-      queryResult = await sails.helpers.sendMultipleQueries(time)
-      sails.log(queryResult)
-      return res.json(queryResult)
-    }
-    //this month search
-    if (inputs.day == "thisMonth") {
-      time = await sails.helpers.thisMonthSearch()
-      queryResult = await sails.helpers.sendMultipleQueries(time)
-      return res.json(queryResult)
-    }
-    return
+
   }
 }

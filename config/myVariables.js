@@ -1,5 +1,5 @@
 module.exports.myVariables = {
-  project: "this is house of all my globally access Variables",
+  project: "this house of all my globally access Variables",
   authorName: "SINGINGSONGZ",
 
   Vs: function () {
@@ -18,16 +18,16 @@ module.exports.myVariables = {
     }
 
   }(),
-  removingTrailingZeros: function (params) {
-    param = params.split('/')
-    rr = []
-    for (i = 0; i < param.length; i++) {
-      rr.push(parseInt(param[i]))
+  // removingTrailingZeros: function (params) {
+  //   param = params.split('/')
+  //   rr = []
+  //   for (let x of param) {
+  //     rr.push(parseInt(x))
 
-    }
-    param = `${rr[0]}/${rr[1]}`
-    return param
-  }
+  //   }
+  //   param = `${rr[0]}/${rr[1]}`
+  //   return param
+  // }
 
 
 }

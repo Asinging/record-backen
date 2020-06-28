@@ -9,15 +9,17 @@
 
 
    inputs: {
-     date: {
+
+     days: {
        description: "this is the time from the action send for query",
        type: "json",
-       required: true,
+
      },
      flag: {
        type: "string",
        required: true
      },
+
      startingDate: {
        description: "this is irregular and regular members search, the date till present date to check how consistent a member has been coming on the range  of dates",
        type: "number"
@@ -40,12 +42,12 @@
 
    fn: async function (inputs, exits) {
 
-     const date = inputs.date
+     let days = inputs.days
 
      let flag = inputs.flag
+
      let startingDate = inputs.startingDate
-     // console.log(time)
-     //sails.log("yes wee are")
+
      // year as flag to differentiate to query from
      if (flag == "financialRecords") {
        console.log(flag)
@@ -53,7 +55,7 @@
 
        let query = await financialRecord.find({
          where: {
-           date: date,
+           date: days,
 
          }
        })
@@ -78,16 +80,18 @@
 
        //  query for firstTimers
      } else if (flag == "firstTimers") {
+       //  console.log("this is 'this is multipleQueries days'")
+
        let query = await members.find({
          where: {
            timely_coming: "first",
-           date_of_service: date
+           date_of_service: days
 
          },
        })
        if (query) {
 
-         sails.log(query)
+         console.log(query)
          return exits.success(query)
 
        }
@@ -95,7 +99,7 @@
        let query = await members.find({
          where: {
            timely_coming: "second",
-           date_of_service: date
+           date_of_service: days
 
          },
        })
@@ -105,6 +109,9 @@
          return exits.success(query)
 
        }
+
+       // this is regular and irregular members this excludes old members, pastors and ministers units heads
+
      } else if (flag == "members") {
 
        let query = await members.find({
@@ -112,11 +119,12 @@
            updatedAt: {
              ">=": startingDate
            },
-           date_of_service: date,
+           date_of_service: days,
 
 
          }
        })
+
 
        if (!query) {
          res.negotiate("this")
@@ -124,18 +132,44 @@
          console.log(query)
          return exits.success(query)
        }
-     } else {
+     } else if (flag == "birthdays") {
+       console.log(days, flag)
        Q.all([
            Leaders.find({
              where: {
-               date_of_birth: time
+               date_of_birth: days
              }
            }).then(),
            members.find({
              where: {
-               date_of_birth: time
+               date_of_birth: days
              }
            }).then()
+         ])
+         .spread(function (leaders, members) {
+
+           let arr = []
+           arr.push(leaders, members)
+           console.log([leaders, members]);
+           return exits.success(arr)
+
+
+         }).fail(err => {
+           console.log(err)
+
+         })
+     }
+
+
+     // this seaches for general members ever recorded, including pastors, head of units, and ministers
+     else if (flag == "generalMembers") {
+       console.log(flag)
+
+
+
+       Q.all([
+           Leaders.find().then(),
+           members.find().then()
          ])
          .spread(function (leaders, members) {
 
@@ -149,7 +183,10 @@
            console.log(err)
 
          })
+
+
      }
+
    }
 
 

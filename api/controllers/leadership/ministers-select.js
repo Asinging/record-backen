@@ -25,9 +25,7 @@ module.exports = {
     if (query) {
       console.log(query)
       if (query.length == []) {
-        return res.status(200).json({
-          data: []
-        })
+        return res.status(200).json(query)
       }
 
       // query.forEach(resData => {

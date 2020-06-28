@@ -53,7 +53,7 @@ module.exports = {
     // })
     var fullName = inputs.fullName;
     var department = inputs.department;
-    var dateOfBirth = sails.config.myVariables.removingTrailingZeros(inputs.dateOfBirth)
+    var dateOfBirth = inputs.dateOfBirth
     var phone = inputs.phone
     // var queryString = 'INSERT INTO leadership (first_name, last_name, email, role, date_of_birth, phone) VALUE("' + firstName + '","' + lastName + '","' + email + '","' + role + '","' + dateOfBirth + '","' + phone + '")'
     // var push = await Leadership.getDatastore().sendNativeQuery(queryString, (err, data) => {

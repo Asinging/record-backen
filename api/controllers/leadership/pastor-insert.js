@@ -53,7 +53,7 @@ module.exports = {
     // })
     var fullName = inputs.fullName;
     var department = inputs.department;
-    var dateOfBirth = sails.config.myVariables.removingTrailingZeros(inputs.dateOfBirth)
+    var dateOfBirth = inputs.dateOfBirth
     var phone = inputs.phone
 
 

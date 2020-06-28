@@ -17,10 +17,11 @@ module.exports.routes = {
   //my custom routes
 
 
-  "GET /events/birthdays": {
+  "GET /birthdays": {
     action: "events/birthdays"
   },
-  "GET /members/irregularMembers": "members/irregular-members-select",
+  "GET /irregularMembers": "members/irregular-members-select",
+  "GET /regularMembers": "members/regular-members-select",
 
   "GET /firstTimers": {
     action: "record/attendance/firstTimers/first-timers"
@@ -29,8 +30,12 @@ module.exports.routes = {
     action: "record/attendance/secondTimers/second-timers"
 
   },
-  "GET /members": {
+  "GET /addmembers": {
     action: "members/members-insert"
+
+  },
+  "GET /members": {
+    action: "members/members-select"
 
   },
 
@@ -41,8 +46,8 @@ module.exports.routes = {
     action: "record/finances/financial-record-insert"
   },
 
-  'GET /heads': "leadership/head-of-department-select",
-  "get /addheads": "leadership/head-of-department-insert",
+  'GET /headOfDepartments': "leadership/head-of-department-select",
+  "get /addheadOfDepartments": "leadership/head-of-department-insert",
 
   'GET /deleteLeader': {
     action: 'leadership/leaders-delete',

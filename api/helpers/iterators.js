@@ -28,32 +28,35 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    // passing the the date function as parameter converts it to string which we can not get the .getMonth method from
-    // so a new date instance has to be created
+
+    // we cannot pass the the date function as parameter cus it is converted  to string 
+    // so a new date has to be instantiated
     let time = new Date()
     let todaysDate = time.getDate()
     theMonth = time.getMonth()
     let thisIteration = inputs.thisIteration
     let arr = inputs.arr
+    console.log(arr)
     if (arr != undefined) {
-
-      let [date, weekStart, weekEnd, countDate, requestYear] = arr
-
+      var [date, weekStart, weekEnd, countDate] = arr
+      console.log(weekStart)
     }
-    days = []
+
+    var days = []
+    let requestYear = time.getFullYear()
+
 
     // this week iteration
 
     if (thisIteration == "thisWeek") {
 
       monthEnding = await sails.helpers.getLastDayOfMonth(time.getFullYear(), theMonth)
-      if (typeof countDate === "string") {
-        requestYear = time.getFullYear()
-      } else {
-        requestYear = 'abundance'
-      }
-
-      if (Math.sign(weekStart) == -1) {
+      // if (typeof countDate === "string") {
+      //   requestYear = time.getFullYear()
+      // } else {
+      //   requestYear = 'abundance'
+      // }
+      if (Math.sign(weekStart) == -1) { // checking if weekStart is of a negative number
 
         weekStart = Math.abs(weekStart)
 
@@ -89,15 +92,20 @@ module.exports = {
           date.setDate(i)
           limit = `${date.getDate()}/${date.getMonth() + 1}/${requestYear}`
           days.push(limit)
+
+          console.log(days)
         }
         for (let i = 1; i <= (weekEnd - monthEnding); i++) {
           days.push(`${i}/${date.getMonth() + 2}/${requestYear}`)
         }
+        sails.log(days)
       } else {
+        console.log("i got you 2 uuu")
         for (let i = weekStart; i <= weekEnd; i++) {
           days.push(`${i}/${time.getMonth() + 1}/${requestYear}`)
         }
-        console.log(days)
+
+        // console.log(days)
       }
     }
 

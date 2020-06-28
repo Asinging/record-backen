@@ -31,18 +31,19 @@ module.exports = {
     let date_1 = inputs.date_1
     let date_2 = inputs.date_2
     let record = inputs.record
-    let compoundQuery
+    let flag = "firstTimers"
+    let queriesCaller
 
 
 
     try {
-      compoundQuery = await sails.helpers.compoundQuery(record, date_1, date_2)
+      queriesCaller = await sails.helpers.callQueries(record, date_1, date_2, flag)
     } catch (error) {
       sails.log(error.name + ":" + error.message)
 
     } finally {
-      console.log
-      return res.json(compoundQuery)
+      sails.log(queriesCaller)
+      return res.json(queriesCaller)
     }
   }
 };
