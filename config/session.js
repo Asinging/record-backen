@@ -26,7 +26,9 @@ module.exports.session = {
   ssl: false,
   stringify: true,
   cookie: {
-    secure: true,
+    //path: 'http://localhost:8080',
+    //SameSite = "Lax",
+    //secure: true,
     maxAge: 24 * 60 * 60 * 1000
   },
 

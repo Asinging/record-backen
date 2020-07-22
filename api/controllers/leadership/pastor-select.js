@@ -18,11 +18,14 @@ module.exports = {
 
 
   fn: async function (inputs) {
+    let req = this.req
+    console.log(req)
     res = this.res
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    res.header("Access-Control-Allow-Credentials", true)
+    res.header('Access-Control-Allow-Origin', 'http://localhost');
+    // res.header("vary ", "*")
+    // res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    //res.header("Access-Control-Allow-Credentials", true)
 
     query = await Leaders.find({
       where: {

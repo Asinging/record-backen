@@ -31,7 +31,9 @@ module.exports.security = {
   cors: {
     allRoutes: true,
     allowOrigins: '*',
-    allowCredentials: false,
+    allowCredentials: true,
+    allowRequestMethods: 'GET, PUT, POST',
+    allowAnyOriginWithCredentialsUnsafe: true
   },
 
 
@@ -44,9 +46,9 @@ module.exports.security = {
    *                                                                           *
    ****************************************************************************/
 
-  csrf: true,
-  // allowOrigins: "*",
-  allowHeaders: ['content-type', 'X-Requested-with']
+  csrf: false,
+  //allowOrigins: "*",
+  //allowHeaders: ['content-type', 'X-Requested-with']
   //allowReponseHeader: 'set-cookie',
 
 

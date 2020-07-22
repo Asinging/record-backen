@@ -28,6 +28,8 @@ module.exports.myVariables = {
   //   param = `${rr[0]}/${rr[1]}`
   //   return param
   // }
-
+  showValue: (value => {
+    //console.log(value)
+  })()
 
 }

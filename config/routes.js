@@ -24,10 +24,10 @@ module.exports.routes = {
   "GET /regularMembers": "members/regular-members-select",
 
   "GET /firstTimers": {
-    action: "record/attendance/firstTimers/first-timers"
+    action: "record/attendance/first/first-timers"
   },
   "GET /secondTimers": {
-    action: "record/attendance/secondTimers/second-timers"
+    action: "record/attendance/second/second-timers"
 
   },
   "GET /addmembers": {
@@ -38,16 +38,16 @@ module.exports.routes = {
     action: "members/members-select"
 
   },
-
+  "GET /appSetupDetatails": "Setup/application-setup",
   "GET /financialRecords/select": {
     action: "record/finances/financial-record-select"
   },
-  'GET /financeRecords/insert': {
+  'POST /financeRecords/insert': {
     action: "record/finances/financial-record-insert"
   },
 
   'GET /headOfDepartments': "leadership/head-of-department-select",
-  "get /addheadOfDepartments": "leadership/head-of-department-insert",
+  "POST /addheadOfDepartments": "leadership/head-of-department-insert",
 
   'GET /deleteLeader': {
     action: 'leadership/leaders-delete',
@@ -58,22 +58,33 @@ module.exports.routes = {
   'get /addpastors': {
     action: 'leadership/pastor-insert',
   },
-  'get /addministers': {
+  'POST /addministers': {
     action: 'leadership/minister-insert',
   },
-  'GET /select': {
-    action: 'leadership/leadership-select',
-  },
+  // 'GET /select': {
+  //   action: 'leadership/leadership-select',
+  // },
   'get /pastors': {
     action: 'leadership/pastor-select',
   },
-
-  'get /login': 'authenticate/login',
-  'get /pastorInsert': {
+  "GET /login  ": "authenticate/login",
+  // 'POST /login': 'authenticate/login',
+  'POST /pastorInsert': {
     action: 'leadership/pastor-insert',
   },
-  'get /adminSignUp': "authenticate/create-user",
-  'get /adminLogin': "admin-login"
+  'GET /adminSignUp': {
+    action: "authenticate/create-admin",
+    //csrf: false,
+    // cors: {
+    //   allowOrigins: '*',
+    //   headers: 'content-Type',
+    //   // allowRequestMethods: 'GET, PUT, POST',
+    //   allowCredentials: true,
+    //   allowRequestMethods: 'GET, PUT, POST',
+    //   allowAnyOriginWithCredentialsUnsafe: true
+    // },
+  },
+  // 'get /adminLogin': "admin-login"
 
 
   //**************************************************************** */

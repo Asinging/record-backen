@@ -8,8 +8,9 @@ module.exports = {
   exits: {},
 
   fn: async function () {
-
+    let req = this.req
     let res = this.res
+    sails.log(req.session.userId)
     let query = await Leaders.find({
       where: {
         role: 'minister'

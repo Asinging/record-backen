@@ -11,7 +11,7 @@ module.exports = {
   inputs: {
     fullName: {
       type: "string",
-      required: true
+
     },
 
     email: {
@@ -19,10 +19,7 @@ module.exports = {
       required: true
     },
 
-    dateOfBirth: {
-      type: "string",
-      required: true
-    },
+
 
     password: {
       type: "string",
@@ -30,27 +27,43 @@ module.exports = {
     },
 
 
+
+
+
   },
 
   exits: {
     success: {
-      description: " if the the query went well the success should be thrown"
+      description: " if the the query went well the success should be thrown",
+      message: "yes this is it"
     },
     cantCreate: {
+
+
       description: "cannot create this particular record"
+    },
+    cannotCreateEmail: {
+      responseType: "emailAlreadyExist",
+      description: "custom response for email already exist "
+
     }
+
 
   },
 
 
   fn: async function (inputs, exits) {
+    let req = this.req
+    let res = this.res
+    // console.log(req.headers)
     let fullName = inputs.fullName
 
     let email = inputs.email
 
-    let dateOfBirth = inputs.dateOfBirth
-    //var hpassword;
-    let password = inputs.password
+
+    let password = inputs.password.trim()
+    console.log(fullName, email, password)
+
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(password, salt, (err, result) => {
         if (err) {
@@ -61,10 +74,13 @@ module.exports = {
           admin.create({
             full_name: fullName,
             email: email,
-            date_of_birth: dateOfBirth,
+
             password: password,
 
+
+
           }).fetch().then(result => {
+            req.session.userId = result.id
 
             console.log(result)
             return exits.success({
@@ -74,8 +90,9 @@ module.exports = {
             })
 
           }).catch(err => {
-            error.negotiate(err)
-            return exits.cantCreate('this record is unable to create')
+            // error.negotiate(err)
+            console.log(err)
+            return res.emailAlreadyExist("this email has been register already try a different one")
           })
           return result
 
