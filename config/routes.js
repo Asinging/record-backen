@@ -67,13 +67,13 @@ module.exports.routes = {
   'get /pastors': {
     action: 'leadership/pastor-select',
   },
-  "GET /login  ": "authenticate/login",
+  "GET /login  ": "authenticate/logins",
   // 'POST /login': 'authenticate/login',
   'POST /pastorInsert': {
     action: 'leadership/pastor-insert',
   },
   'GET /adminSignUp': {
-    action: "authenticate/create-admin",
+    action: "authenticate/add-admin",
     //csrf: false,
     // cors: {
     //   allowOrigins: '*',

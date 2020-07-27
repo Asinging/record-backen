@@ -23,7 +23,7 @@
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   "env": {
-    "node": true
+    "node": false
   },
 
   "parserOptions": {
@@ -34,12 +34,12 @@
     // If "no-undef" is enabled below, be sure to list all global variables that
     // are used in this app's backend code (including the globalIds of models):
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    "Promise": true,
-    "sails": true,
-    "_": true,
+    "Promise": false,
+    "sails": false,
+    "_": false,
 
     // Models:
-    "User": true
+    "User": false
     
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -48,13 +48,13 @@
   "rules": {
     "block-scoped-var":             ["error"],
     "callback-return":              ["error", ["done", "proceed", "next", "onwards", "callback", "cb"]],
-    "camelcase":                    ["warn", {"properties":"always"}],
-    "comma-style":                  ["warn", "last"],
+    "camelcase":                    ["warn", "never", {"properties":"always"}],
+    "comma-style":                  ["warn", "never", "last"],
     "curly":                        ["warn"],
     "eqeqeq":                       ["error", "always"],
     "eol-last":                     ["warn"],
     "handle-callback-err":          ["error"],
-    "indent":                       ["warn", 2, {
+    "indent":                       ["warn", "never", 2, {
       "SwitchCase": 1,
       "MemberExpression": "off",
       "FunctionDeclaration": {"body":1, "parameters":"off"},
@@ -64,7 +64,7 @@
       "ObjectExpression": 1,
       "ignoredNodes": ["ConditionalExpression"]
     }],
-    "linebreak-style":              ["error", "unix"],
+    "linebreak-style":              ["warn", "unix"],
     "no-dupe-keys":                 ["error"],
     "no-duplicate-case":            ["error"],
     "no-extra-semi":                ["warn"],
@@ -77,14 +77,14 @@
     "no-undef":                     ["error"],
     "no-unexpected-multiline":      ["warn"],
     "no-unreachable":               ["warn"],
-    "no-unused-vars":               ["warn", {"caughtErrors":"all", "caughtErrorsIgnorePattern": "^unused($|[A-Z].*$)", "argsIgnorePattern": "^unused($|[A-Z].*$)", "varsIgnorePattern": "^unused($|[A-Z].*$)" }],
+    "no-unused-vars":               ["warn", "never", {"caughtErrors":"all", "caughtErrorsIgnorePattern": "^unused($|[A-Z].*$)", "argsIgnorePattern": "^unused($|[A-Z].*$)", "varsIgnorePattern": "^unused($|[A-Z].*$)" }],
     "no-use-before-define":         ["error", {"functions":false}],
-    "one-var":                      ["warn", "never"],
-    "prefer-arrow-callback":        ["warn", {"allowNamedFunctions":true}],
-    "quotes":                       ["warn", "single", {"avoidEscape":false, "allowTemplateLiterals":true}],
-    "semi":                         ["warn", "always"],
-    "semi-spacing":                 ["warn", {"before":false, "after":true}],
-    "semi-style":                   ["warn", "last"]
+    "one-var":                      ["warn", "never", "never",],
+    "prefer-arrow-callback":        ["warn", "never", {"allowNamedFunctions":true}],
+    "quotes":                       ["warn", "never", "single", {"avoidEscape":false, "allowTemplateLiterals":true}],
+    "semi":                         ["warn", "never", "always"],
+    "semi-spacing":                 ["warn", "never", {"before":false, "after":true}],
+    "semi-style":                   ["warn", "never", "last"]
   }
 
 }

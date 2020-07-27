@@ -1,4 +1,5 @@
-bcrypt = require("bcryptjs")
+/* eslint-disable linebreak-style */
+const bcrypt = require('bcryptjs');
 module.exports = {
   friendlyName: 'Login',
 
@@ -13,28 +14,34 @@ module.exports = {
     password: {
       type: 'string',
       required: true,
-    },
+    }
   },
 
-  exits: {},
+  exits: {
+    badUserRequest:{
+      description:"this should be thrown when the client request for a user that does not exist",
+    
+    }
+  },
 
   fn: async function (inputs, exits) {
+    console.log("finally fix this")
     let res = this.res;
     let req = this.req;
 
     var email = inputs.email;
-    var password = inputs.password.trim()
-    console.log(email, password)
-    foundUser = []
+    var password = inputs.password.trim();
+    console.log(email, password);
+  var foundUser = [];
 
 
     admin.findOne({
-        where: {
-          email: email,
-        },
+      where: {
+        email: email,
+      },
 
-        // select: ['email', 'password'],
-      })
+      // select: ['email', 'password'],
+    })
       .catch(err => {
         if (err) {
           console.log('inconsistency violation');
@@ -47,22 +54,20 @@ module.exports = {
       .then(data => {
         //console.log(data)
         if (!data) {
-          return res.serverError({
-            mesage: "no Admin exist with this email and password ",
-            statusCode: 401
-          })
+          return res.userNotFound("no User exist with this authentication details")
+        
         } else {
           //console.log(data)
           Object.entries(data).forEach(item => {
-            if (item[0] == "password") {
+            if (item[0] === 'password') {
               (async (password, item) => {
                 // console.log(item)
-                let checked = await bcrypt.compare(password, item)
-                // if (result) { 
+                let checked = await bcrypt.compare(password, item);
+                // if (result) {
                 if (checked) {
                   //console.log(data)
 
-                  req.session.userId = data.id
+                  req.session.userId = data.id;
                   //console.log(req.session)
 
 
@@ -80,7 +85,7 @@ module.exports = {
                     data: data,
                     msg: 'you have successfully login',
 
-                  })
+                  });
                 }
 
                 if (!checked) {
@@ -88,13 +93,13 @@ module.exports = {
 
                   return res.forbidden({
                     message: 'passord incorrect'
-                  })
+                  });
                 }
-              })(password, item[1])
+              })(password, item[1]);
             }
-          })
+          });
         }
-      })
+      });
 
     // All done.
 

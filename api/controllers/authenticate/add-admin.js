@@ -1,3 +1,4 @@
+/* eslint-disable */
 const bcrypt = require("bcryptjs")
 module.exports = {
 
@@ -42,11 +43,11 @@ module.exports = {
 
       description: "cannot create this particular record"
     },
-    cannotCreateEmail: {
-      responseType: "emailAlreadyExist",
-      description: "custom response for email already exist "
+    // cannotCreateEmail: {
+    //   responseType: "emailAlreadyExist",
+    //   description: "custom response for email already exist "
 
-    }
+    // }
 
 
   },
@@ -64,7 +65,7 @@ module.exports = {
     let password = inputs.password.trim()
     console.log(fullName, email, password)
 
-    bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.genSalt(10, (_err, salt) => {
       bcrypt.hash(password, salt, (err, result) => {
         if (err) {
           console.log("password can't be hash")

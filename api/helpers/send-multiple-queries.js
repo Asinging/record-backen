@@ -1,4 +1,4 @@
- const Q = require("q")
+ const Q = require("qs")
  module.exports = {
 
 
