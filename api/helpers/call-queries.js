@@ -2,7 +2,7 @@ module.exports = {
 
 
   friendlyName: 'call Queries',
-  description: ' this is to enable all other making request successfully pass through this e.g firstTimer and second timer request',
+  description: ' this is serve as a middleware for other request this e.g firstTimer and second timer request',
   inputs: {
     record: {
       type: "string"
@@ -22,7 +22,7 @@ module.exports = {
   fn: async function (inputs) {
 
 
-    // (year) a flag to be pass around for differention from birthday query
+    // a flag to be pass around for differenting one query type from another query
     let searchingType = inputs.record.toLowerCase()
     let day_1 = inputs.date_1;
     let day_2 = inputs.date_2

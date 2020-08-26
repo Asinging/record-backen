@@ -1,4 +1,4 @@
-# assets/dependencies/**/*.js
-# views/**/*.ejs
-# api/controllers/**/*.js
+assets/dependencies/**/*.js
+views/**/*.ejs
+api/controllers/**/*.js
 

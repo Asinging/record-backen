@@ -21,17 +21,21 @@ module.exports = {
     },
 
 
+    phone: {
+      type: "number",
+      required: true,
+
+    },
+
     dateOfBirth: {
       type: "string",
       required: true,
 
     },
-    phone: {
-      type: "number",
-      required: true,
-
+    address: {
+      type: "string",
+      required: true
     }
-
 
   },
 
@@ -51,10 +55,12 @@ module.exports = {
     // Object.keys(inputs).forEach(f => {
     //   if (inputs.f = '')
     // })
+    console.log("can you see me am her")
     var fullName = inputs.fullName;
     var department = inputs.department;
     var dateOfBirth = inputs.dateOfBirth
     var phone = inputs.phone
+    var address = inputs.address
 
 
     let query = await Leaders.create({
@@ -62,7 +68,8 @@ module.exports = {
       department: department,
       role: "pastor",
       date_of_birth: dateOfBirth,
-      phone: phone
+      phone: phone,
+      address: address
 
     }).fetch()
     if (query) {
@@ -76,7 +83,7 @@ module.exports = {
 
 
     } else if (!query) {
-      console.log(query)
+
 
       console.log("cant go")
       return exits.notFound("THE REQUESTED PAGE NOT FOUND")

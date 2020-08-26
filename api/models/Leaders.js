@@ -25,15 +25,18 @@ module.exports = {
       required: true,
       allowNull: false
     },
+    phone: {
+      type: "number",
+      required: true,
+      allowNull: false
+    },
     date_of_birth: {
       type: "string",
       required: true,
       allowNull: false
     },
-    phone: {
-      type: "number",
-      required: true,
-      allowNull: false
+    address: {
+      type: "string",
     },
 
 

@@ -18,30 +18,28 @@ module.exports = {
   },
 
   exits: {
-    badUserRequest:{
-      description:"this should be thrown when the client request for a user that does not exist",
-    
+    badUserRequest: {
+      description: "this should be thrown when the client request for a user that does not exist",
+
     }
   },
 
   fn: async function (inputs, exits) {
-    console.log("finally fix this")
+
     let res = this.res;
     let req = this.req;
 
-    var email = inputs.email;
-    var password = inputs.password.trim();
-    console.log(email, password);
-  var foundUser = [];
+    var email = inputs.email.toLowerCase()
 
-
+    var password = inputs.password.toLowerCase().trim();
+    console.log(email)
     admin.findOne({
-      where: {
-        email: email,
-      },
+        where: {
+          email: email,
+        },
 
-      // select: ['email', 'password'],
-    })
+
+      })
       .catch(err => {
         if (err) {
           console.log('inconsistency violation');
@@ -52,10 +50,11 @@ module.exports = {
         }
       })
       .then(data => {
-        //console.log(data)
+
         if (!data) {
+
           return res.userNotFound("no User exist with this authentication details")
-        
+
         } else {
           //console.log(data)
           Object.entries(data).forEach(item => {
@@ -91,9 +90,7 @@ module.exports = {
                 if (!checked) {
 
 
-                  return res.forbidden({
-                    message: 'passord incorrect'
-                  });
+                  return res.userNotFound('the passord is incorrect, check and try again');
                 }
               })(password, item[1]);
             }

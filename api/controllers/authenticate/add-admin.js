@@ -57,13 +57,12 @@ module.exports = {
     let req = this.req
     let res = this.res
     // console.log(req.headers)
-    let fullName = inputs.fullName
+    let fullName = inputs.fullName.toLowerCase()
 
-    let email = inputs.email
+    let email = inputs.email.toLowerCase()
 
 
-    let password = inputs.password.trim()
-    console.log(fullName, email, password)
+    let password = inputs.password.toLowerCase().trim()
 
     bcrypt.genSalt(10, (_err, salt) => {
       bcrypt.hash(password, salt, (err, result) => {
@@ -83,7 +82,7 @@ module.exports = {
           }).fetch().then(result => {
             req.session.userId = result.id
 
-            console.log(result)
+
             return exits.success({
               message: "successfuly",
               data: result,
@@ -92,7 +91,7 @@ module.exports = {
 
           }).catch(err => {
             // error.negotiate(err)
-            console.log(err)
+
             return res.emailAlreadyExist("this email has been register already try a different one")
           })
           return result

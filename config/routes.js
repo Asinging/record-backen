@@ -17,20 +17,20 @@ module.exports.routes = {
   //my custom routes
 
 
-  "GET /birthdays": {
+  "GET /birthdays/select": {
     action: "events/birthdays"
   },
-  "GET /irregularMembers": "members/irregular-members-select",
+  "GET /irregularMembers": "/irregular-members-select",
   "GET /regularMembers": "members/regular-members-select",
 
-  "GET /firstTimers": {
+  "GET /firstTimers/select": {
     action: "record/attendance/first/first-timers"
   },
-  "GET /secondTimers": {
+  "GET /secondTimers/select": {
     action: "record/attendance/second/second-timers"
 
   },
-  "GET /addmembers": {
+  "POST /addmembers": {
     action: "members/members-insert"
 
   },
@@ -38,7 +38,7 @@ module.exports.routes = {
     action: "members/members-select"
 
   },
-  "GET /appSetupDetatails": "Setup/application-setup",
+  "POST /appSetupDetatails": "Setup/application-setup",
   "GET /financialRecords/select": {
     action: "record/finances/financial-record-select"
   },
@@ -55,7 +55,7 @@ module.exports.routes = {
   'GET /ministers': {
     action: "leadership/ministers-select"
   },
-  'get /addpastors': {
+  'POST /addpastors': {
     action: 'leadership/pastor-insert',
   },
   'POST /addministers': {
@@ -68,23 +68,19 @@ module.exports.routes = {
     action: 'leadership/pastor-select',
   },
   "GET /login  ": "authenticate/logins",
-  // 'POST /login': 'authenticate/login',
-  'POST /pastorInsert': {
-    action: 'leadership/pastor-insert',
-  },
+  'POST /resetPassword': 'authenticate/reset-password',
+
   'GET /adminSignUp': {
     action: "authenticate/add-admin",
-    //csrf: false,
-    // cors: {
-    //   allowOrigins: '*',
-    //   headers: 'content-Type',
-    //   // allowRequestMethods: 'GET, PUT, POST',
-    //   allowCredentials: true,
-    //   allowRequestMethods: 'GET, PUT, POST',
-    //   allowAnyOriginWithCredentialsUnsafe: true
-    // },
+
   },
-  // 'get /adminLogin': "admin-login"
+  "POST /forgotPassword": {
+    action: "authenticate/forgotten-password",
+  },
+  "GET /logout": {
+    action: "authenticate/log-out",
+  }
+
 
 
   //**************************************************************** */

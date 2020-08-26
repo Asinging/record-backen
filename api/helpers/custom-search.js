@@ -49,8 +49,8 @@ module.exports = {
     //let the first day to be queried from, is not bigger than the last day
     if (year <= year2) {
 
-      if (year === year2) {
-        if (month <= month2) {
+      if (year === year2) { //same year
+        if (month <= month2) { 
           if (month === month2) {
             if (day < day2) {
               arr.push(arr1, arr2)

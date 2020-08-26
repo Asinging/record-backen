@@ -166,13 +166,12 @@ will be disabled and/or hidden in the UI.
             // console.log(req.session)
             // Not logged in? Proceed as usual.
             if (!req.session.userId) {
-              console.log("yes i caught you")
+
               return next();
             }
 
             // Otherwise, look up the logged-in user.
-            console.log("afte userId display")
-            console.log(req.session.userId)
+
 
             var loggedInUser = await admin.findOne({
               id: req.session.userId
