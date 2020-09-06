@@ -29,6 +29,13 @@ module.exports = {
       type: "string",
       required: true
     },
+    token: {
+      type: "string",
+
+    },token_exp: {
+      type: "string",
+
+    },
 
 
 

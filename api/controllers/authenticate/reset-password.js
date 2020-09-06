@@ -11,30 +11,58 @@ module.exports = {
   inputs: {
     newPassword: {
       type: "string"
+    },
+    token: {
+      type: "string"
     }
 
   },
 
 
   exits: {
-    uccess: {
+    success: {
       description: " if the the query went well the success should be thrown",
       message: "yes this is it"
     },
+    notToken: {
+      description: "the token to check if the person making the password request is valid"
+    },
+    tokenExp: {
+      description: "the token has expires"
+    },
   },
-
 
   fn: async function (inputs, exits) {
     let req = this.req
     let res = this.res
     let newPassword = inputs.newPassword
-    console.log(req.session.userId)
-    console.log(newPassword)
+    let token = inputs.token
+
+
+    console.log(token)
+    if (!token) {
+      return exits.notToken("You cannot make this password reset now try again later")
+    }
+    // compares the token recieved withe that of the database
+    userToken = await admin.findOne({
+      where: {
+        token: token,
+        token_exp: {
+
+          //pick the record that has value greater than now
+          ">=": Math.floor(Date.now() / 1000)
+        }
+      }
+    })
+    if (!userToken) {
+      return exits.tokenExp("You could not finish up the process. pls request for a new forgot password")
+    }
+
     bcrypt.genSalt(10, (_err, salt) => {
       bcrypt.hash(newPassword, salt, (err, result) => {
         if (err) {
           console.log("newPassword can't be hash")
-
+          return serverError("the server is not responding try again")
         } else if (result) {
           newPassword = result
           admin.updateOne({
@@ -45,7 +73,7 @@ module.exports = {
             console.log(result)
             // res.local.userName = result.full_name
             sails.hooks.email.send("passwordChanged", {
-                Name: result.full_name,
+                name: result.full_name,
               }, {
                 to: result.email,
                 subject: "Email Reset Successfull",

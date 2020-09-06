@@ -1,57 +1,44 @@
-const path = require("path")
+const path = require("path");
+var SkipperDisk = require("skipper-disk");
+SkipperDisk
+  ?
+  console.log("i haver the skipper disk") :
+  console.log("i dont have the skipper disk");
 module.exports = {
+  friendlyName: "Application setup",
 
-
-  friendlyName: 'Application setup',
-
-
-  description: '',
+  description: "",
   inputs: {
-    orgName: {
-      type: "string",
-    },
     orgInitial: {
       type: "string",
     },
+    orgName: {
+      type: "string",
+    },
+
     orgLogo: {
-      type: "string"
-    }
+      type: "ref",
+    },
   },
-  exits: {},
-  fn: async function (inputs) {
-    let res = this.res
-    let req = this.req
-    orgName = inputs.orgName
-    orgInitial = inputs.orgInitial
-    orgLogo = inputs.orgLogo
-    console.log(orgLogo)
-    let fileUploaded = req.file(orgLogo).upload({
-      // maxBite: 10000000,
-      dirname: path.resolve(sails.config.appPath, 'assets/images'),
-    })
-    if (!fileUploaded) {
-
-      console.log("file failed to upload")
-      return
-    } else if (fileUploaded.length === 0) {
-      return res.json('No file was uploaded');
-    }
-
-    return res.json({
-      data: {
-        orgName,
-        orgInitial
-      },
-      message: "files successfully uploaded"
-    })
-
-
-
+  exits: {
+    notFound: {
+      description: "",
+    },
+  },
+  fn: async function (inputs, exits) {
+    let res = this.res;
+    let req = this.req;
+    let orgName = inputs.orgName;
+    let orgInitial = inputs.orgInitial;
+    let orgLogo = inputs.orgLogo;
+    console.log(orgName);
+    console.log(orgInitial);
+    console.log(orgLogo);
+    var data = req
+    console.log(data)
+     
 
     // All done.
     return;
-
-  }
-
-
+  },
 };

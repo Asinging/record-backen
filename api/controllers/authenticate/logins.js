@@ -32,7 +32,7 @@ module.exports = {
     var email = inputs.email.toLowerCase()
 
     var password = inputs.password.toLowerCase().trim();
-    console.log(email)
+  
     admin.findOne({
         where: {
           email: email,

@@ -7,11 +7,13 @@
 
 <body>
   <div>
-    <h3>Dear {{obj}},</h3>
-    <p>You requested for a password reset, kindly use this <a href="http://localhost:8080/#/resetPassword">link</a> to
+    <h3>Dear <%= name %></h3>
+    <p>You requested for a password reset, kindly use this link <a href="<%= url %>"> Reset
+        Password</a>
+      to
       reset your password</p>
     <br>
-    <p>Cheers!</p>
+    <p>Thank You!</p>
   </div>
   <script></script>
 </body>

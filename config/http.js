@@ -35,6 +35,7 @@ module.exports.http = {
       'cookieParser',
       'session',
       'bodyParser',
+      // "skipper",
       'compress',
       'poweredBy',
       'router',
@@ -53,11 +54,18 @@ module.exports.http = {
      *                                                                          *
      ***************************************************************************/
 
-    // bodyParser: (function _configureBodyParser(){
-    //   var skipper = require('skipper');
-    //   var middlewareFn = skipper({ strict: true });
-    //   return middlewareFn;
-    // })(),
+    bodyParser: (function _configureBodyParser() {
+      var skipper = require('skipper');
+      var middlewareFn = skipper({
+        strict: false,
+        onBodyParserError: (err, res, req, next) => {
+          if (err) {
+            consolelog("the request body parser has error passing this requests")
+          }
+        }
+      });
+      return middlewareFn;
+    })(),
 
   },
 

@@ -22,6 +22,14 @@ module.exports = {
     let res = this.res
 
     if (req.session.userId) {
+      await admin.updateOne({
+        where: {
+          id: req.session.userId
+        }
+      }).set({
+        token: '',
+        token_exp: 0,
+      })
       req.session.userId = "undefined"
       return res.json({
         message: "You have successully signed out"
@@ -30,9 +38,7 @@ module.exports = {
 
 
     // All done.
-    return;
-
-  }
+    return;  }
 
 
 };

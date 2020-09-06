@@ -39,6 +39,7 @@ module.exports.routes = {
 
   },
   "POST /appSetupDetatails": "Setup/application-setup",
+  //  "POST /appSetupDetatails": "fileController.upload",
   "GET /financialRecords/select": {
     action: "record/finances/financial-record-select"
   },
@@ -68,7 +69,7 @@ module.exports.routes = {
     action: 'leadership/pastor-select',
   },
   "GET /login  ": "authenticate/logins",
-  'POST /resetPassword': 'authenticate/reset-password',
+  'GET /resetPassword': 'authenticate/reset-password',
 
   'GET /adminSignUp': {
     action: "authenticate/add-admin",

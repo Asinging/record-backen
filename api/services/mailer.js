@@ -1,12 +1,14 @@
-module.exports.sendWelcomeMail = function (obj) {
+module.exports.sendWelcomeMail = function (obj, tok) {
   sails.hooks.email.send("resetPassword", {
-      Name: obj.full_name,
+      name: obj.full_name,
+
+      url: `http://localhost:8080/#/auth/resetPassword?token=${tok}`
     }, {
       to: obj.email,
       subject: "Welcome Email",
     },
     (err) => {
-      console.log(err || obj.email || "Mail Sent!");
+      console.log(err || "mail sent")
     }
   );
 };

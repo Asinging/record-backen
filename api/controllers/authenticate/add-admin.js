@@ -76,6 +76,8 @@ module.exports = {
             email: email,
 
             password: password,
+            token: '',
+            token_exp:0
 
 
 

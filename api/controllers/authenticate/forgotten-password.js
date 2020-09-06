@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken")
+const fs = require("fs")
 module.exports = {
   friendlyName: "Forgotten password",
 
@@ -16,38 +18,51 @@ module.exports = {
     },
   },
 
-  exits: {},
+  exits: {
+    notFound: {
+      description: "this will be triggered if the record searched does not match the searching parameter",
+      message: "this is not found"
+    },
+    notMailed: {
+      description: "can't be mailed at the moment"
+    }
+  },
 
-  fn: async function (inputs, exist) {
+  fn: async function (inputs, exits) {
     const res = this.res;
     const req = this.req;
-    console.log(req)
-    let fullName = inputs.fullName.toLowerCase()
-    let email = inputs.email.toLowerCase()
-    let query = await admin.findOne({
-      where: {
-        full_name: fullName,
-        email: email,
+    const fullName = inputs.fullName.toLowerCase().trim()
+    const email = inputs.email.toLowerCase().trim()
 
-      },
-    });
+    const token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + 600,
+      data: `${fullName}${Math.random()}`
+    }, 'secret');
+    if (!email) {
+      return exits.notFound("this is email is never registerd")
+    }
+    let query = await admin.updateOne({
+      where: {
+        email: email
+      }
+    }).set({
+      token: token,
+      token_exp: Date.now() + 600000 // in milliseconds
+    })
     if (!query) {
       console.log("i cant see any record that matches this input")
-      return res.json("i cant't see any record that matches this");
+      return exits.notFound("There is no user that exist with this Username or Email address")
     }
     req.session.userId = query.id;
-    console.log("this is is")
-    Mailer = await mailer.sendWelcomeMail(query);
-    if (Mailer) {
-      console.log("this is successfull" + success);
-    } else if (Mailer) {
-      console.log("the mail can't be be  sent");
-    }
+
+    console.log(token)
+    mailer.sendWelcomeMail(query, token);
     return res.json({
       data: query,
       message: "visit your mail and reset your password",
     });
 
-    return;
+
+
   },
 };
